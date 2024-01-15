@@ -12,11 +12,20 @@ class IncomeCreateView(CreateView):
     template_name = "income_form.html"
     success_url = reverse_lazy("income_list")
 
+    def form_invalid(self, form):
+        print(form.errors)
+        response = super().form_invalid(form)
+        return response
+
 
 class IncomeListView(ListView):
     model = Transaction
     template_name = "income_list.html"
     context_object_name = "transactions"
+    paginate_by = 5
+    queryset = Transaction.objects.filter(
+        transaction_type=Transaction.TRANSACTION_TYPE_INCOME
+    ).order_by("-created_at")
 
 
 class IncomeDetailView(DetailView):
