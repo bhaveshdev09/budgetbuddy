@@ -1,0 +1,13 @@
+<!-- transaction_confirm_delete.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Confirm Delete</h2>
+  <p>Are you sure you want to delete the transaction with description "{{ transaction.description }}"?</p>
+
+  <form method="post" action="{% url 'income_delete' transaction.pk %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a href="{% url 'income_list' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+{% endblock %}

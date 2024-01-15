@@ -1,0 +1,14 @@
+<!-- create_update_transaction.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>{% if transaction %}Update{% else %}Add{% endif %} Income</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">
+      {% if transaction %}Update{% else %}Add{% endif %} Income
+    </button>
+  </form>
+  {% comment %} <a href="{% url 'dashboard' %}">Go to Dashboard</a> {% endcomment %}
+{% endblock %}
