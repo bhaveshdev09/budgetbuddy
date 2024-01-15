@@ -5,7 +5,7 @@
         <div class="d-flex">
             <!-- LOGO -->
             <div class="navbar-brand-box">
-                <a href="index.html" class="logo logo-dark">
+                <a href="#" class="logo logo-dark">
                     <span class="logo-sm">
                         <img src="{% static "assets/images/logo-sm.svg" %}" alt="" height="30">
                     </span>
@@ -13,7 +13,7 @@
                         <img src="{% static "assets/images/logo-sm.svg" %}" alt="" height="24"> <span class="logo-txt">BudgetBuddy</span>
                     </span>
                 </a>
-                <a href="index.html" class="logo logo-light">
+                <a href="#" class="logo logo-light">
                     <span class="logo-sm">
                         <img src="{% static "assets/images/logo-sm.svg" %}" alt="" height="30">
                     </span>
@@ -27,7 +27,16 @@
             </button>
         </div>
 
+        
+
         <div class="d-flex">
+            <div class="dropdown d-none d-sm-inline-block">
+                <button type="button" class="btn header-item" id="mode-setting-btn">
+                    <i data-feather="moon" class="icon-lg layout-mode-dark"></i>
+                    <i data-feather="sun" class="icon-lg layout-mode-light"></i>
+                </button>
+            </div>
+            
             <div class="dropdown d-inline-block">
                 <button type="button" class="btn header-item bg-soft-light border-start border-end" id="page-header-user-dropdown"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
