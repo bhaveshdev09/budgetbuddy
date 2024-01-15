@@ -6,13 +6,25 @@ from budget.views import (
     IncomeDetailView,
     IncomeUpdateView,
     IncomeDeleteView,
+    ExpenseCreateView,
+    ExpenseListView,
+    ExpenseUpdateView,
+    ExpenseDeleteView,
 )
 
 urlpatterns = [
-    # ... your existing URLs
     # CRUD for Income
     path("income/add/", IncomeCreateView.as_view(), name="income_create"),
     path("income/", IncomeListView.as_view(), name="income_list"),
     path("income/<int:pk>/update/", IncomeUpdateView.as_view(), name="income_update"),
     path("income/<int:pk>/delete/", IncomeDeleteView.as_view(), name="income_delete"),
+    # CRUD for Expense
+    path("expense/add/", ExpenseCreateView.as_view(), name="expense_create"),
+    path("expense/", ExpenseListView.as_view(), name="expense_list"),
+    path(
+        "expense/<int:pk>/update/", ExpenseUpdateView.as_view(), name="expense_update"
+    ),
+    path(
+        "expense/<int:pk>/delete/", ExpenseDeleteView.as_view(), name="expense_delete"
+    ),
 ]

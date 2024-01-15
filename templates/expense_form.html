@@ -1,0 +1,71 @@
+<!-- create_update_transaction.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Expense {% if transaction %}Update{% else %}Add{% endif %}{% endblock title %}
+
+{% block content %}
+  <div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Expense</h4>
+
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">{% if transaction %}Update{% else %}Add{% endif %} Expense</h4>
+                        <form class="outer-repeater" method="post">
+                            <div class="outer">
+                                {% csrf_token %}
+                                <div data-repeater-item class="outer">
+                                    <div class="form-group row mb-4">
+                                        <label for="taskname" class="col-form-label col-lg-2">{{ form.amount.label_tag }}</label>
+                                        <div class="col-lg-10">
+                                            {{form.amount}}
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mb-4">
+                                      <label for="taskname" class="col-form-label col-lg-2">{{form.description.label_tag}}</label>
+                                      <div class="col-lg-10">
+                                          {{form.description}}
+                                      </div>
+                                    </div>
+                                    <div class="form-group row mb-4">
+                                      <label for="taskname" class="col-form-label col-lg-2">{{form.transaction_date.label_tag}}</label>
+                                      <div class="col-lg-10">
+                                        <div class="input-daterange input-group" data-provide="datepicker">
+                                          {{form.transaction_date}}
+                                        </div>
+                                      </div>
+                                    </div>
+                                    {{form.transaction_type}}
+                                </div>
+                            </div>
+                            <div class="row justify-content-end">
+                                <div class="col-lg-10">
+                                    <button type="submit" class="btn btn-primary">{% if transaction %}Update{% else %}Add{% endif %}</button>
+                                </div>
+                            </div>
+    
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+        
+    </div> <!-- container-fluid -->
+</div>
+{% endblock %}
+
+

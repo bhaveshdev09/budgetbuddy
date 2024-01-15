@@ -5,3 +5,10 @@ from .income import (
     IncomeUpdateView,
     IncomeDeleteView,
 )
+
+from .expense import (
+    ExpenseCreateView,
+    ExpenseListView,
+    ExpenseUpdateView,
+    ExpenseDeleteView,
+)

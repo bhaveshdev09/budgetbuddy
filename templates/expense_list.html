@@ -2,7 +2,7 @@
 {% extends 'base.html' %}
 {% load humanize %}
 
-{% block title %}Income Transactions{% endblock title %}
+{% block title %}Expense Transactions{% endblock title %}
 
 {% block content %}
 <div class="page-content">
@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                    <h4 class="mb-sm-0 font-size-18">Income</h4>
+                    <h4 class="mb-sm-0 font-size-18">Expense</h4>
 
                     {% comment %} <div class="page-title-right">
                         <ol class="breadcrumb m-0">
@@ -41,9 +41,9 @@
                             </div>
                             <div class="col-sm-8">
                                 <div class="text-sm-end">
-                                    <a href="{% url "income_create" %}" type="button"
+                                    <a href="{% url "expense_create" %}" type="button"
                                         class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2"><i
-                                            class="mdi mdi-plus me-1"></i> Add Income</a>
+                                            class="mdi mdi-plus me-1"></i> Add Expense</a>
                                 </div>
                             </div><!-- end col-->
                         </div>
@@ -86,9 +86,9 @@
                                         </td> {% endcomment %}
                                         <td>
                                             <div class="d-flex gap-3">
-                                                <a href="{% url "income_update" transaction.pk %}"
+                                                <a href="{% url "expense_update" transaction.pk %}"
                                                     class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                                <a href="{% url "income_delete" transaction.pk %}"
+                                                <a href="{% url "expense_delete" transaction.pk %}"
                                                     class="text-danger"><i class="mdi mdi-delete font-size-18"></i></a>
                                             </div>
                                         </td>
