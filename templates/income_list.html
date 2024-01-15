@@ -1,0 +1,34 @@
+<!-- transaction_list.html -->
+{% extends 'base.html' %}
+
+{% block title %}Income Transactions{% endblock title %}
+
+{% block content %}
+  <h2>Income Transaction List</h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Amount</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for transaction in transactions %}
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{transaction.amount}}</td>
+          <td>
+            {{ transaction.description }}
+          </td>
+          <td>
+            <a href="{% url "income_update" transaction.pk %}" class="btn btn-primary btn-sm">Update</a>
+            <a href="{% url "income_delete" transaction.pk %}" class="btn btn-danger btn-sm">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% comment %} <a href="{% url 'dashboard' %}" class="btn btn-secondary">Go to Dashboard</a> {% endcomment %}
+{% endblock %}
