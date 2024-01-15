@@ -1,34 +1,132 @@
 <!-- transaction_list.html -->
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block title %}Income Transactions{% endblock title %}
 
 {% block content %}
-  <h2>Income Transaction List</h2>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Amount</th>
-        <th>Description</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for transaction in transactions %}
-        <tr>
-          <td>{{forloop.counter}}</td>
-          <td>{{transaction.amount}}</td>
-          <td>
-            {{ transaction.description }}
-          </td>
-          <td>
-            <a href="{% url "income_update" transaction.pk %}" class="btn btn-primary btn-sm">Update</a>
-            <a href="{% url "income_delete" transaction.pk %}" class="btn btn-danger btn-sm">Delete</a>
-          </td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-  {% comment %} <a href="{% url 'dashboard' %}" class="btn btn-secondary">Go to Dashboard</a> {% endcomment %}
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                    <h4 class="mb-sm-0 font-size-18">Income</h4>
+
+                    {% comment %} <div class="page-title-right">
+                        <ol class="breadcrumb m-0">
+                            <li class="breadcrumb-item"><a href="javascript: void(0);">Ecommerce</a></li>
+                            <li class="breadcrumb-item active">Orders</li>
+                        </ol>
+                    </div> {% endcomment %}
+
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-sm-4">
+                                {% comment %} <div class="search-box me-2 mb-2 d-inline-block">
+                                    <div class="position-relative">
+                                        <input type="text" class="form-control" placeholder="Search...">
+                                        <i class="bx bx-search-alt search-icon"></i>
+                                    </div>
+                                </div> {% endcomment %}
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="text-sm-end">
+                                    <a href="{% url "income_create" %}" type="button"
+                                        class="btn btn-success btn-rounded waves-effect waves-light mb-2 me-2"><i
+                                            class="mdi mdi-plus me-1"></i> Add Income</a>
+                                </div>
+                            </div><!-- end col-->
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table align-middle table-nowrap table-check">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="align-middle">#</th>
+                                        <th class="align-middle">Amount</th>
+                                        <th class="align-middle">Message</th>
+                                        <th class="align-middle">Date</th>
+                                        <th class="align-middle">Created On</th>
+                                        <th class="align-middle">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for transaction in transactions %}
+                                    <tr>
+                                        <td>{{forloop.counter}}</td>
+                                        <td>
+                                            Rs. {{transaction.amount}}
+                                        </td>
+                                        <td>
+                                            {{transaction.description}}
+                                        </td>
+                                        <td>
+                                            {{transaction.transaction_date|date}}
+                                        </td>
+                                        <td>
+                                            {{transaction.created_at|naturaltime}}
+                                        </td>
+
+                                        {% comment %} <td>
+                                            <!-- Button trigger modal -->
+                                            <button type="button" class="btn btn-primary btn-sm btn-rounded"
+                                                data-bs-toggle="modal" data-bs-target=".orderdetailsModal">
+                                                View Details
+                                            </button>
+                                        </td> {% endcomment %}
+                                        <td>
+                                            <div class="d-flex gap-3">
+                                                <a href="{% url "income_update" transaction.pk %}"
+                                                    class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                                <a href="{% url "income_delete" transaction.pk %}"
+                                                    class="text-danger"><i class="mdi mdi-delete font-size-18"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <ul class="pagination pagination-rounded justify-content-end mb-2">
+                            <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
+                                <a class="page-link"
+                                    href="{% if page_obj.has_previous %}?page={{ page_obj.previous_page_number }}{% else %}#{% endif %}"
+                                    aria-label="Previous">
+                                    <i class="mdi mdi-chevron-left"></i>
+                                </a>
+                            </li>
+                            {% for i in paginator.page_range %}
+                            {% if page_obj.number == i %}
+                            <li class="page-item active"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                            {% else %}
+                            <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+                            {% endif %}
+                            {% endfor %}
+                            <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
+                                <a class="page-link"
+                                    href="{% if page_obj.has_next %}?page={{ page_obj.next_page_number }}{% else %}#{% endif %}"
+                                    aria-label="Next">
+                                    <i class="mdi mdi-chevron-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+
+    </div> <!-- container-fluid -->
+</div>
 {% endblock %}

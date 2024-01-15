@@ -1,6 +1,6 @@
 from django.db import models
 from backend.models import BaseModel
-
+from django.utils import timezone
 
 class Transaction(BaseModel):
     TRANSACTION_TYPE_INCOME = "income"
@@ -16,6 +16,7 @@ class Transaction(BaseModel):
         choices=TRANSACTION_TYPE_CHOICES,
         default=TRANSACTION_TYPE_EXPENSE,
     )
+    transaction_date = models.DateField(default=timezone.now)
 
     def __str__(self):
         return f"{self.transaction_type} : {self.amount}"

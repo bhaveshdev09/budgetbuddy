@@ -1,20 +1,81 @@
-<!-- base.html -->
-<!DOCTYPE html>
+{% load static %}
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% endblock title %}</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-</head>
-<body>
-    <div class="container">
-        {% block content %}{% endblock %}
-    </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    {% block scripts %}{% endblock %}
-</body>
+
+    <head>
+        
+        <meta charset="utf-8" />
+        <title>{% block title %}{% endblock title %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta content="Finance Management" name="description" />
+        <meta content="Test" name="author" />
+        <!-- App favicon -->
+        <link rel="shortcut icon" href="{% static "assets/images/favicon.ico" %}">
+
+        <!-- preloader css -->
+        <link rel="stylesheet" href="{% static "assets/css/preloader.min.css" %}" type="text/css" />
+
+        <!-- Bootstrap Css -->
+        <link href="{% static "assets/css/bootstrap.min.css" %}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+        <!-- Icons Css -->
+        <link href="{% static "assets/css/icons.min.css" %}" rel="stylesheet" type="text/css" />
+        <!-- App Css-->
+        <link href="{% static "assets/css/app.min.css" %}" id="app-style" rel="stylesheet" type="text/css" />
+
+    </head>
+
+    <body data-topbar="dark">
+
+    <!-- <body data-layout="horizontal"> -->
+
+        <!-- Begin page -->
+        <div id="layout-wrapper">
+            
+            <!-- ========== TopBar ========== -->
+            {% include "components/topbar.html" %}
+
+            <!-- ========== Left Sidebar Start ========== -->
+            {% include "components/sidebar.html" %}
+            <!-- Left Sidebar End -->
+            
+            <!-- ============================================================== -->
+            <!-- Start right Content here -->
+            <!-- ============================================================== -->
+            <div class="main-content">
+
+                {% block content %}{% endblock content %}
+                <!-- End Page-content -->
+
+                
+                {% comment %} <footer class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <script>document.write(new Date().getFullYear())</script> © Dason.
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="text-sm-end d-none d-sm-block">
+                                    Design & Develop by <a href="#!" class="text-decoration-underline">Themesbrand</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer> {% endcomment %}
+            </div>
+            <!-- end main content-->
+
+        </div>
+        <!-- END layout-wrapper -->
+
+        <!-- JAVASCRIPT -->
+        <script src="{% static "assets/libs/jquery/jquery.min.js" %}"></script>
+        <script src="{% static "assets/libs/bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+        <script src="{% static "assets/libs/metismenu/metisMenu.min.js" %}"></script>
+        <script src="{% static "assets/libs/simplebar/simplebar.min.js" %}"></script>
+        <script src="{% static "assets/libs/node-waves/waves.min.js" %}"></script>
+        <script src="{% static "assets/libs/feather-icons/feather.min.js" %}"></script>
+        <script src="{% static "assets/libs/pace-js/pace.min.js" %}"></script>
+        <script src="{% static "assets/js/app.js" %}"></script>
+
+    </body>
 </html>
