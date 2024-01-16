@@ -4,9 +4,10 @@ from django.views.generic import ListView, DetailView
 from budget.models import Transaction
 from budget.forms import ExpenseForm
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class ExpenseCreateView(CreateView):
+class ExpenseCreateView(LoginRequiredMixin, CreateView):
     model = Transaction
     form_class = ExpenseForm
     template_name = "expense_form.html"
@@ -18,7 +19,7 @@ class ExpenseCreateView(CreateView):
         return response
 
 
-class ExpenseListView(ListView):
+class ExpenseListView(LoginRequiredMixin, ListView):
     model = Transaction
     template_name = "expense_list.html"
     context_object_name = "transactions"
@@ -28,13 +29,13 @@ class ExpenseListView(ListView):
     ).order_by("-created_at")
 
 
-class ExpenseDetailView(DetailView):
+class ExpenseDetailView(LoginRequiredMixin, DetailView):
     model = Transaction
     template_name = "expense_detail.html"
     context_object_name = "expense"
 
 
-class ExpenseUpdateView(UpdateView):
+class ExpenseUpdateView(LoginRequiredMixin, UpdateView):
     model = Transaction
     form_class = ExpenseForm
     template_name = "expense_form.html"
@@ -42,7 +43,7 @@ class ExpenseUpdateView(UpdateView):
     success_message = "expense updated successfully."
 
 
-class ExpenseDeleteView(DeleteView):
+class ExpenseDeleteView(LoginRequiredMixin, DeleteView):
     model = Transaction
     template_name = "expense_confirm_delete.html"
     success_url = reverse_lazy("expense_list")

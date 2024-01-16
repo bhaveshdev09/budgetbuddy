@@ -4,9 +4,10 @@ from django.views.generic import ListView, DetailView
 from budget.models import Transaction
 from budget.forms import IncomeForm
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class IncomeCreateView(CreateView):
+class IncomeCreateView(LoginRequiredMixin, CreateView):
     model = Transaction
     form_class = IncomeForm
     template_name = "income_form.html"
@@ -18,7 +19,7 @@ class IncomeCreateView(CreateView):
         return response
 
 
-class IncomeListView(ListView):
+class IncomeListView(LoginRequiredMixin, ListView):
     model = Transaction
     template_name = "income_list.html"
     context_object_name = "transactions"
@@ -34,7 +35,7 @@ class IncomeDetailView(DetailView):
     context_object_name = "income"
 
 
-class IncomeUpdateView(UpdateView):
+class IncomeUpdateView(LoginRequiredMixin, UpdateView):
     model = Transaction
     form_class = IncomeForm
     template_name = "income_form.html"
@@ -42,7 +43,7 @@ class IncomeUpdateView(UpdateView):
     success_message = "Income updated successfully."
 
 
-class IncomeDeleteView(DeleteView):
+class IncomeDeleteView(LoginRequiredMixin, DeleteView):
     model = Transaction
     template_name = "income_confirm_delete.html"
     success_url = reverse_lazy("income_list")
