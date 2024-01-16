@@ -12,3 +12,5 @@ from .expense import (
     ExpenseUpdateView,
     ExpenseDeleteView,
 )
+
+from .dashboard import DashboardView, DashboardAPIView

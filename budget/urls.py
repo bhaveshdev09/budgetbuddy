@@ -10,9 +10,13 @@ from budget.views import (
     ExpenseListView,
     ExpenseUpdateView,
     ExpenseDeleteView,
+    DashboardView,
+    DashboardAPIView,
 )
 
 urlpatterns = [
+    path("", DashboardView.as_view(), name="dashboard"),
+    path("api/transc/", DashboardAPIView.as_view(), name="dashboard-bar-api"),
     # CRUD for Income
     path("income/add/", IncomeCreateView.as_view(), name="income_create"),
     path("income/", IncomeListView.as_view(), name="income_list"),
