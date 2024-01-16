@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     "django.contrib.humanize",
     "budget",
     "staticfile",
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -62,6 +63,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "backend.wsgi.application"
 
+AUTH_USER_MODEL = "users.User"
 
 DATABASES = {
     "default": {

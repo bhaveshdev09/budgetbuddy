@@ -5,12 +5,14 @@ from django.db import models
 from datetime import time, datetime, timedelta
 
 from budget.models import Transaction
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class DashboardView(View):
+class DashboardView(LoginRequiredMixin, View):
     template_name = "dashboard.html"
 
     def get(self, request, *args, **kwargs):
+        print(request.user)
         transaction_data = Transaction.objects.all().order_by("-created_at")
         income_data = (
             transaction_data.filter(
@@ -57,7 +59,7 @@ class DashboardView(View):
         )
 
 
-class DashboardAPIView(View):
+class DashboardAPIView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         income_data = []
         expense_data = []
