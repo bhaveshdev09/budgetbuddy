@@ -1,13 +1,28 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load humanize %}
+{% load socialaccount %}
 
 {% block title %}Dashboard{% endblock title %}
 
 {% block content %}
 <div class="page-content">
     <div class="container-fluid">
-
+        {% if messages %}
+                            {% for message in messages %}
+                                {% if message.tags == "success" %}
+                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                        {{message}}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                {% else %}
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        {{message}}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endif %}
         <!-- start page title -->
         <div class="row">
             <div class="col-12">
@@ -97,7 +112,7 @@
         </div><!-- end row--> 
 
         <div class="row">
-            <div class="col-xl-8">
+            <div class="col-xl-12">
                 <!-- card -->
                 <div class="card">
                     <!-- card body -->
@@ -232,7 +247,7 @@
             </div>
             <!-- end row-->
 
-            <div class="col-xl-4">
+            {% comment %} <div class="col-xl-4">
                 <!-- card -->
                 <div class="card">
                     <!-- card body -->
@@ -282,7 +297,7 @@
                     <!-- end card body -->
                 </div>
                 <!-- end card -->
-            </div>
+            </div> {% endcomment %}
             <!-- end col -->
         </div>
         <!-- end row-->
@@ -296,8 +311,10 @@
                             <div class="dropdown">
                                 <a class=" dropdown-toggle" href="#" id="dropdownMenuButton2"
                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {% comment %} <span class="text-muted">All Members<i class="mdi mdi-chevron-down ms-1"></i></span> {% endcomment %}
+                                    {% comment %} <span class="text-muted">All Members<i class="mdi mdi-chevron-down ms-1"></i></span>
                                 </a>
+                                
+                                 {% endcomment %}
         
                                 {% comment %} <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton2">
                                     <a class="dropdown-item" href="#">Members</a>
@@ -465,8 +482,8 @@
                                     <i class="bx bx-dots-horizontal-rounded font-size-18 text-dark"></i>
                                 </a>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="{% url "income_list" %}">Income</a>
-                                    <a class="dropdown-item" href="{% url "expense_list" %}">Expenses</a>
+                                    <a class="dropdown-item" href="{% url "income_create" %}">Add Income</a>
+                                    <a class="dropdown-item" href="{% url "expense_create" %}">Add Expenses</a>
                                 </div>
                             </div>
                         </div>

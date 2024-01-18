@@ -1,33 +1,39 @@
 <!-- transaction_list.html -->
 {% extends 'base.html' %}
 {% load humanize %}
+{% load socialaccount %}
 
 {% block title %}Income Transactions{% endblock title %}
 
 {% block content %}
 <div class="page-content">
     <div class="container-fluid">
-
         <!-- start page title -->
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
                     <h4 class="mb-sm-0 font-size-18">Income</h4>
-
-                    {% comment %} <div class="page-title-right">
-                        <ol class="breadcrumb m-0">
-                            <li class="breadcrumb-item"><a href="javascript: void(0);">Ecommerce</a></li>
-                            <li class="breadcrumb-item active">Orders</li>
-                        </ol>
-                    </div> {% endcomment %}
-
                 </div>
             </div>
         </div>
         <!-- end page title -->
-
         <div class="row">
             <div class="col-12">
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == "success" %}
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{message}}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% else %}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{message}}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
                 <div class="card">
                     <div class="card-body">
                         <div class="row mb-2">
@@ -74,7 +80,7 @@
                                             {{transaction.transaction_date|date}}
                                         </td>
                                         <td>
-                                            {{transaction.created_at|naturaltime}} | {{transaction.created_at}}
+                                            {{transaction.created_at|naturaltime}}
                                         </td>
 
                                         {% comment %} <td>
@@ -93,6 +99,14 @@
                                             </div>
                                         </td>
                                     </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td colspan="2">Sorry! Income not found. Click on `<strong>Add Income</strong>` to create an Income</td>
+                                            <td></td>
+                                        </tr>
                                     {% endfor %}
                                 </tbody>
                             </table>
