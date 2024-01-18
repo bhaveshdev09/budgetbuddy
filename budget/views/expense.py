@@ -5,6 +5,7 @@ from budget.models import Transaction
 from budget.forms import ExpenseForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 
 
 class ExpenseCreateView(LoginRequiredMixin, CreateView):
@@ -14,9 +15,13 @@ class ExpenseCreateView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("expense_list")
 
     def form_invalid(self, form):
-        print(form.errors)
         response = super().form_invalid(form)
         return response
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        messages.success(self.request, "Expense created successfully")
+        return super().form_valid(form)
 
 
 class ExpenseListView(LoginRequiredMixin, ListView):

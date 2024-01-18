@@ -5,6 +5,7 @@ from budget.models import Transaction
 from budget.forms import IncomeForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 
 
 class IncomeCreateView(LoginRequiredMixin, CreateView):
@@ -17,6 +18,11 @@ class IncomeCreateView(LoginRequiredMixin, CreateView):
         print(form.errors)
         response = super().form_invalid(form)
         return response
+
+    def form_valid(self, form):
+        form.instance.created_by = self.request.user
+        messages.success(self.request, "Income created successfully")
+        return super().form_valid(form)
 
 
 class IncomeListView(LoginRequiredMixin, ListView):

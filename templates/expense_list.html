@@ -1,6 +1,7 @@
 <!-- transaction_list.html -->
 {% extends 'base.html' %}
 {% load humanize %}
+{% load socialaccount %}
 
 {% block title %}Expense Transactions{% endblock title %}
 
@@ -28,6 +29,22 @@
 
         <div class="row">
             <div class="col-12">
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if message.tags == "success" %}
+                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                {{message}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% else %}
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                {{message}}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                
                 <div class="card">
                     <div class="card-body">
                         <div class="row mb-2">
@@ -62,37 +79,45 @@
                                 </thead>
                                 <tbody>
                                     {% for transaction in transactions %}
-                                    <tr>
-                                        <td>{{forloop.counter}}</td>
-                                        <td>
-                                            <strong>Rs. {{transaction.amount}}</strong>
-                                        </td>
-                                        <td>
-                                            {{transaction.description}}
-                                        </td>
-                                        <td>
-                                            {{transaction.transaction_date|date}}
-                                        </td>
-                                        <td>
-                                            {{transaction.created_at|naturaltime}}
-                                        </td>
+                                        <tr>
+                                            <td>{{forloop.counter}}</td>
+                                            <td>
+                                                <strong>Rs. {{transaction.amount}}</strong>
+                                            </td>
+                                            <td>
+                                                {{transaction.description}}
+                                            </td>
+                                            <td>
+                                                {{transaction.transaction_date|date}}
+                                            </td>
+                                            <td>
+                                                {{transaction.created_at|naturaltime}}
+                                            </td>
 
-                                        {% comment %} <td>
-                                            <!-- Button trigger modal -->
-                                            <button type="button" class="btn btn-primary btn-sm btn-rounded"
-                                                data-bs-toggle="modal" data-bs-target=".orderdetailsModal">
-                                                View Details
-                                            </button>
-                                        </td> {% endcomment %}
-                                        <td>
-                                            <div class="d-flex gap-3">
-                                                <a href="{% url "expense_update" transaction.pk %}"
-                                                    class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
-                                                <a href="{% url "expense_delete" transaction.pk %}"
-                                                    class="text-danger"><i class="mdi mdi-delete font-size-18"></i></a>
-                                            </div>
-                                        </td>
+                                            {% comment %} <td>
+                                                <!-- Button trigger modal -->
+                                                <button type="button" class="btn btn-primary btn-sm btn-rounded"
+                                                    data-bs-toggle="modal" data-bs-target=".orderdetailsModal">
+                                                    View Details
+                                                </button>
+                                            </td> {% endcomment %}
+                                            <td>
+                                                <div class="d-flex gap-3">
+                                                    <a href="{% url "expense_update" transaction.pk %}"
+                                                        class="text-success"><i class="mdi mdi-pencil font-size-18"></i></a>
+                                                    <a href="{% url "expense_delete" transaction.pk %}"
+                                                        class="text-danger"><i class="mdi mdi-delete font-size-18"></i></a>
+                                                </div>
+                                            </td>
                                     </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td colspan="2">Sorry! Expense not Found. Click on `<strong>Add Expense</strong>` to create an Expense</td>
+                                            <td></td>
+                                        </tr>
                                     {% endfor %}
                                 </tbody>
                             </table>
